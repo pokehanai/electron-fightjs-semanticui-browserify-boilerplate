@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Electron-FlightJS-Browserify-Boilerplate</title>
+<!-- build:css ./styles/main.css -->
+<!-- inject:css -->
+<!-- endinject -->
+<!-- endbuild -->
+</head>
+<body>
+  <div class="ui container">
+    <h1 class="ui dividing header">Electron-FlightJS-Browserify-SemanticUI-Boilerplate </h1>
+    <h5 class="ui header"><i class="blue circle info icon"></i> We are using...</h5>
+    <div class="ui very relaxed list" id="info">
+      <div class="item">
+        <img class="ui avatar image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/440px-Node.js_logo.svg.png">
+        <div class="content">
+          <a class="header">Node</a>
+          <div class="description">Version <span class="node"></span></div>
+        </div>
+      </div>
+      <div class="item">
+        <img class="ui avatar image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Google_Chrome_for_Android_Icon_2016.svg/128px-Google_Chrome_for_Android_Icon_2016.svg.png">
+        <div class="content">
+          <a class="header">Chronium</a>
+          <div class="description">Version <span class="chrome"></span></div>
+        </div>
+      </div>
+      <div class="item">
+        <img class="ui avatar image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Electron_0.36.4_Icon.png/128px-Electron_0.36.4_Icon.png">
+        <div class="content">
+          <a class="header">Electron</a>
+          <div class="description">Version <span class="electron"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- build:remove-->
+<script>require('electron-connect').client.create()</script>
+<!-- endbuild -->
+<script src="scripts/app.js"></script>
+</body>
+</html>
