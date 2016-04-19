@@ -1,2 +1,2 @@
-Electron FightJS Semantic-UI Browserify Boilerplate
-===================================================
+Electron FlightJS Semantic-UI Browserify Boilerplate
+====================================================

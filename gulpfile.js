@@ -11,6 +11,7 @@ const buffer = require('vinyl-buffer');
 const del = require('del');
 const packageJson = require('./package.json');
 const electronServer = require('electron-connect').server;
+const hbsfy = require('hbsfy');
 
 gulp.task('clean', () => {
   del.sync('build/*');
@@ -94,7 +95,8 @@ let createBundler = plugins => {
                        debug: true,
                        plugin: plugins
                      })
-      .transform(babelify, { presets: ['es2015'] });
+      .transform(hbsfy)
+      .transform(babelify, { presets: ['es2015'] })
   defaultModules.forEach(m => b.exclude(m));
   electronModules.forEach(m => b.exclude(m));
   return b;
@@ -135,7 +137,6 @@ gulp.task('watch', ['inject:css', 'compile:app', 'compile:app:watch', 'compile:s
 });
 
 gulp.task('serve', ['inject:css', 'compile:app', 'compile:app:watch', 'compile:scripts:watch'], function () {
-  console.log("go");
   var electron = electronServer.create();
   electron.start();
 

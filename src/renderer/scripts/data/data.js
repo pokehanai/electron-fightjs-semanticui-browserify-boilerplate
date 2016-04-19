@@ -1,6 +1,6 @@
 'use strict';
 
-import { defineComponent } from '../flight';
+import { defineComponent } from 'flight';
 
 module.exports = defineComponent(component);
 
