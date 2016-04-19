@@ -135,7 +135,6 @@ gulp.task('watch', ['inject:css', 'compile:app', 'compile:app:watch', 'compile:s
 });
 
 gulp.task('serve', ['inject:css', 'compile:app', 'compile:app:watch', 'compile:scripts:watch'], function () {
-  console.log("go");
   var electron = electronServer.create();
   electron.start();
 
