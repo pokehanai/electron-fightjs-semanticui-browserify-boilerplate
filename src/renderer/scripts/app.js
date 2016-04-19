@@ -2,7 +2,7 @@
 
 import "babel-polyfill";
 import $ from "jquery";
-import { advice, component, compose, debug, logger, registry, utils } from './flight'
+import { advice, component, compose, debug, logger, registry, utils } from 'flight'
 
 window.$ = $;
 
