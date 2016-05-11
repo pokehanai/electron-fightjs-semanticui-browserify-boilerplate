@@ -39,13 +39,13 @@
     "handlebars": "^4.0.5",
     "hbsfy": "^2.7.0",
     "main-bower-files": "^2.11.1",
+    "merge2": "^1.0.2",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"
   },
   "dependencies": {
-    "babel-core": "^6.7.6",
-    "babel-polyfill": "^6.7.4",
-    "jquery": "^2.2.3"
+    "babel-polyfill": "^6.8.0",
+    "dotenv": "^2.0.0"
   }
 }

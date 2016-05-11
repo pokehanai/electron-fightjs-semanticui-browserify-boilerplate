@@ -29,3 +29,6 @@ release/
 
 # bower components
 bower_components/
+
+# dotenv
+.env
