@@ -8,8 +8,9 @@ import { app, BrowserWindow, crashReporter } from 'electron';
 let mainWindow = null;
 if (process.env.NODE_ENV === 'develop') {
   crashReporter.start({
-    compaynyName: 'example.com',
+    companyName: 'example.com',
     autoSubmit: false,
+    submitURL: 'http://example.com',
   });
 }
 
