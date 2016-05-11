@@ -79,8 +79,8 @@ gulp.task('build:app', function () {
   ;
 });
 
-gulp.task('build:scripts', function () {
-  bundle(createBundler([]), true);
+gulp.task('build:scripts', function (done) {
+  bundle(createBundler([]), true, done);
 });
 
 gulp.task('compile:app:watch', function (done) {
@@ -125,11 +125,14 @@ let createBundler = plugins => {
   return b;
 };
 
-let bundle = (bundler, forDist) => {
+let bundle = (bundler, forDist, done) => {
   bundler
     .bundle()
     .on('error', $.util.log)
-    .on('end', () => $.util.log('browserify compile success.'))
+    .on('end', () => {
+      $.util.log('browserify compile success.');
+      done && done()
+    })
     .pipe(source('src/renderer/scripts/app.js'))
     .pipe(buffer())
     .pipe(forDist ? $.uglify() : $.nop())
@@ -139,8 +142,8 @@ let bundle = (bundler, forDist) => {
     .pipe(gulp.dest(forDist ? 'dist/renderer/scripts/' : 'build/renderer/scripts'));
 };
 
-gulp.task('compile:scripts', () => {
-  bundle(createBundler([]));
+gulp.task('compile:scripts', function (done) {
+  bundle(createBundler([]), false, done);
 });
 
 // Minify dependent modules.
@@ -215,16 +218,33 @@ gulp.task('packageJson', ['bundle:dependencies'], function (done) {
   });
 });
 
+// Package for each platforms
+gulp.task('package', ['win32', 'darwin'].map(function (platform) {
+  var taskName = 'package:' + platform;
+  gulp.task(taskName, ['dist'], function (done) {
+    packager({
+      dir: 'dist',
+      name: 'ElectronApp',
+      arch: 'x64',
+      platform: platform,
+      out: 'release',
+      version: '0.37.8'
+    }, function (err) {
+      done();
+    });
+  });
+  return taskName;
+}));
+
 gulp.task('build', ['inject:css', 'compile:app', 'compile:scripts']);
 gulp.task('dist', ['build:html', 'build:app', 'build:scripts', 'packageJson', 'copy:theme']);
 
 gulp.task('compile:scripts:watch', (done) => {
   let bundler = createBundler([watchify]);
-  let rebundle = () => bundle(bundler);
+  let rebundle = () => bundle(bundler, false, done);
 
   bundler.on('update', rebundle);
   rebundle(bundler);
-  done();
   return rebundle;
 });
 
