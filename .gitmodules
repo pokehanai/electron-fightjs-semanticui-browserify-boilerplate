@@ -1,3 +1,0 @@
-[submodule "vendor/flight"]
-	path = vendor/flight
-	url = git@github.com:flightjs/flight.git
