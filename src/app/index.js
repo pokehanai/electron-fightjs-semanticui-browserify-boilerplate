@@ -1,12 +1,16 @@
 'use strict';
 
 require('babel-polyfill');
+require('dotenv').config();
 
 import { app, BrowserWindow, crashReporter } from 'electron';
 
 let mainWindow = null;
 if (process.env.NODE_ENV === 'develop') {
-  crashReporter.start();
+  crashReporter.start({
+    compaynyName: 'example.com',
+    autoSubmit: false,
+  });
 }
 
 app.on('window-all-closed', () => {
@@ -21,7 +25,10 @@ app.on('ready', () => {
     height: 800
   });
 
-  mainWindow.webContents.openDevTools();
+  if (process.env.NODE_ENV === 'develop') {
+    mainWindow.webContents.openDevTools();
+  }
+
   mainWindow.loadURL('file://' + __dirname + '/../renderer/index.html');
 
   mainWindow.on('closed', function() {
