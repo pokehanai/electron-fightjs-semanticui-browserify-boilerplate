@@ -213,7 +213,7 @@ gulp.task('package', ['win32', 'darwin'].map(function (platform) {
   gulp.task(taskName, ['dist'], function (done) {
     packager({
       dir: 'dist',
-      name: 'ElectronApp',
+      name: packageJson.name,
       arch: 'x64',
       platform: platform,
       out: 'release',
