@@ -1,6 +1,6 @@
 'use strict';
 
-import { defineComponent } from 'flight';
+import { component as defineComponent } from 'flightjs';
 import tmpl from '../templates/version-item.hbs'
 
 module.exports = defineComponent(component);

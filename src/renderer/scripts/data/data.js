@@ -1,7 +1,6 @@
 'use strict';
 
-import { defineComponent } from 'flight';
-
+import { component as defineComponent } from 'flightjs';
 module.exports = defineComponent(component);
 
 function component() {

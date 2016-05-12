@@ -170,24 +170,13 @@ gulp.task('bundle:dependencies', function () {
     } else {
       main = [packageJson.main];
     }
-    return {
-      name: dep,
-      main: main,
-      moddir: 'node_modules/'
-    };
+    return { name: dep, main: main };
   });
-
-  // add flightjs
-  modules.push({
-    name: 'flight',
-    main: ['index.js'],
-    moddir: 'src/renderer/scripts/node_modules/',
-  })
 
   // create bundle file and minify for each main files
   modules.forEach(function (it) {
     it.main.forEach(function (entry) {
-      var b = browserify(it.moddir + it.name + '/' + entry, {
+      var b = browserify('node_modules/' + it.name + '/' + entry, {
         detectGlobal: false,
         standalone: entry
       });
