@@ -230,25 +230,28 @@ gulp.task('dist', ['build:html', 'build:app', 'build:scripts', 'packageJson', 'c
 
 gulp.task('compile:scripts:watch', (done) => {
   let bundler = createBundler([watchify]);
-  let rebundle = () => bundle(bundler, false, done);
-
-  bundler.on('update', rebundle);
-  rebundle(bundler);
-  return rebundle;
+  bundler.on('update', () => bundle(bundler));
+  bundle(bundler, false, () => done());
 });
 
-gulp.task('watch', ['inject:css', 'compile:app', 'compile:app:watch', 'compile:scripts:watch'], function () {
+gulp.task('watch', ['inject:css', 'compile:app', 'compile:scripts:watch'], function () {
   gulp.watch(['bower.json', 'src/**/*.html', 'src/**/*.scss'], ['compile:styles', 'inject:css']);
 });
 
-gulp.task('serve', ['inject:css', 'compile:app', 'compile:app:watch', 'compile:scripts:watch'], function () {
+gulp.task('serve', ['inject:css', 'compile:app', 'compile:scripts:watch'], function () {
   var electron = electronServer.create();
   electron.start();
 
   gulp.watch(['bower.json', 'src/**/*.html', 'src/**/*.scss'], ['compile:styles', 'inject:css']);
+
+  var tid = 0;
   gulp.watch("build/**/*", () => {
-    console.log("RELOAD");
-    electron.reload();
+    if (tid) clearTimeout(tid);
+    tid = setTimeout(() => {
+      tid = 0;
+      $.util.log("RELOAD");
+      electron.reload();
+    }, 150);
   });
 });
 
