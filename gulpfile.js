@@ -178,7 +178,7 @@ gulp.task('bundle:dependencies', function () {
     it.main.forEach(function (entry) {
       var b = browserify('node_modules/' + it.name + '/' + entry, {
         detectGlobal: false,
-        standalone: entry
+        standalone: it.name,
       });
       excludeModules.forEach(function (moduleName) { b.exclude(moduleName) });
       streams.push(b.bundle()
